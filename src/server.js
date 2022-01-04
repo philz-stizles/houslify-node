@@ -1,6 +1,6 @@
 /* eslint-disable prefer-destructuring */
 const http = require('http');
-require('dotenv').config({ path: './config.env' });
+require('../dotenv-config');
 const app = require('./app');
 const connectDB = require('./db/index');
 const initSocketIO = require('./socket');

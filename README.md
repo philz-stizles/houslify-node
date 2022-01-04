@@ -101,6 +101,42 @@ This is a real estate platform
   npm i --save-dev @types/dotenv-safe
 - Create files '.env.example' and '.env'
 
+## Sequelize
+
+  Create .sequelizerc file:
+
+    ```js
+      const path = require('path');
+
+      module.exports = {
+        config: path.resolve('./src/db/config', 'config.js'),
+        'models-path': path.resolve('./src/db', 'models'),
+        'seeders-path': path.resolve('./src/db', 'seeders'),
+        'migrations-path': path.resolve('./src/db', 'migrations'),
+      };
+    ```
+
+  Install sequelize in project:
+
+      npm install --save sequelize
+
+  Install the sequelize-cli:
+
+      npm install --save-dev sequelize-cli
+      npx sequelize --help
+
+  Project Bootstrapping:
+
+      npx sequelize-cli init
+
+  Create model:
+
+      npx sequelize-cli model:generate --name User --attributes username:string,isActive:boolean,createdAt:date,updatedAt:date
+
+  Run Migrations:
+
+      npx sequelize-cli db:migrate
+
 ## File Uploads
 
 - multer - for parsing, validation etc
