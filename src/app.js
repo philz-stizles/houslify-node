@@ -100,6 +100,7 @@ const version = process.env.API_VERSION;
 app.use(`${api}${version}/auth`, require('./routes/auth.routes'));
 app.use(`${api}${version}/users`, require('./routes/user.routes'));
 app.use(`${api}${version}/apartments`, require('./routes/apartment.routes'));
+app.use(`${api}${version}/bookings`, require('./routes/booking.routes'));
 app.use(`${api}${version}/categories`, require('./routes/category.routes'));
 app.use(`${api}${version}/reviews`, require('./routes/review.routes'));
 app.use(`${api}${version}/notifications`, require('./routes/review.routes'));
