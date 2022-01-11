@@ -40,6 +40,8 @@ jobs:
         ref : main # branch name on which this CI will run
 
     - name: Create and set env variables
+      uses: actions/setup-node@v2
+
     - run: |
         touch .env
         echo "DB_USER=${DB_USER}" >> .env
@@ -51,8 +53,7 @@ jobs:
         echo "APP_PORT=${APP_PORT}" >> .env
         echo "SECRET=${SECRET}" >> .env
         echo "ENCRYPTION_KEY=${ENCRYPTION_KEY}" >> .env
- 
-    - name: Run a one-line script
+
     - run: npm install && npm run test:ci
 
     - name: Heroku login credentials
