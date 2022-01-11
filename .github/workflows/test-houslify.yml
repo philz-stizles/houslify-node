@@ -52,6 +52,10 @@ jobs:
         echo "DB_NAME=${DB_NAME}" >> .env
         echo "DB_HOST=${DB_HOST}" >> .env
         echo "DB_DIALECT=${DB_DIALECT}" >> .env
+        echo "GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}" >> .env
+        echo "GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}" >> .env
+        echo "FACEBOOK_APP_ID=${FACEBOOK_APP_ID}" >> .env
+        echo "FACEBOOK_APP_SECRET=${FACEBOOK_APP_SECRET}" >> .env
         echo "NODE_ENV=${NODE_ENV}" >> .env
         echo "APP_PORT=${APP_PORT}" >> .env
         echo "SECRET=${SECRET}" >> .env
