@@ -12,7 +12,9 @@ env:
   DB_HOST : localhost
   DB_DIALECT : postgres
   NODE_ENV : test
-  APP_PORT : 4000
+  PORT : 4000
+  API_ROOT: /api
+  API_VERSION: /v1
   GOOGLE_CLIENT_ID : ${{secrets.GOOGLE_CLIENT_ID}}
   GOOGLE_CLIENT_SECRET : ${{secrets.GOOGLE_CLIENT_SECRET}}
   FACEBOOK_APP_ID : ${{secrets.GOOGLE_CLIENT_ID}}
@@ -57,7 +59,9 @@ jobs:
         echo "FACEBOOK_APP_ID=${FACEBOOK_APP_ID}" >> .env
         echo "FACEBOOK_APP_SECRET=${FACEBOOK_APP_SECRET}" >> .env
         echo "NODE_ENV=${NODE_ENV}" >> .env
-        echo "APP_PORT=${APP_PORT}" >> .env
+        echo "PORT=${PORT}" >> .env
+        echo "API_ROOT=${API_ROOT}" >> .env
+        echo "API_VERSION=${API_VERSION}" >> .env
         echo "SECRET=${SECRET}" >> .env
         echo "ENCRYPTION_KEY=${ENCRYPTION_KEY}" >> .env
 
