@@ -34,21 +34,12 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-    strategy:
-      matrix:
-        node-version: [14.x]
-        # node-version: [12.x, 14.x, 15.x]
-  
     steps:
     - uses: actions/checkout@v2
       with:
         ref : main # branch name on which this CI will run
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-
+    - name: Create and set env variables
     - run: |
         touch .env
         echo "DB_USER=${DB_USER}" >> .env
@@ -61,8 +52,8 @@ jobs:
         echo "SECRET=${SECRET}" >> .env
         echo "ENCRYPTION_KEY=${ENCRYPTION_KEY}" >> .env
  
-    # - run: sudo npm install --unsafe-perm
-    # - run: sudo npm run test
+    - name: Run a one-line script
+    - run: npm install && npm run test:ci
 
     - name: Heroku login credentials
       run: |
