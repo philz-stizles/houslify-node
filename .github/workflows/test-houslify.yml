@@ -61,7 +61,7 @@ jobs:
         echo "SECRET=${SECRET}" >> .env
         echo "ENCRYPTION_KEY=${ENCRYPTION_KEY}" >> .env
  
-    # - run: sudo npm install --unsafe-perm
+    - run: sudo npm install #--unsafe-perm
     - run: sudo npm run test
 
     - name: Heroku login credentials
