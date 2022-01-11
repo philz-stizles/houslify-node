@@ -12,8 +12,8 @@ const SubCategory, {
 } = require('@src/models/mongoose/subCategory.model';
 
 exports.create = async (
-  modelObject: DocumentDefinition<ISubCategoryDocument>
-): Promise<ISubCategoryDocument> => {
+  modelObject
+) => {
   const existingSubCategory = await SubCategory.findOne({
     name: modelObject.name,
   });
@@ -27,8 +27,8 @@ exports.create = async (
 };
 
 exports.findBySlug = async (
-  query: FilterQuery<ISubCategoryDocument>
-): Promise<LeanDocument<ISubCategoryDocument> | null> => {
+  query
+) => {
   const targetSubCategory = await SubCategory.findOne(query);
   if (!targetSubCategory) {
     throw new NotFoundError('Sub Category does not exist');
@@ -37,8 +37,8 @@ exports.findBySlug = async (
 };
 
 exports.list = async (
-  query: FilterQuery<ISubCategoryDocument>,
-  options: QueryOptions = { lean: true }
+  query,
+  options
 ) => {
   // If you're executing a query and sending the results without modification to, say, an Express response,
   // you should use lean.In general, if you do not modify the query results and do not use custom getters,
@@ -48,9 +48,9 @@ exports.list = async (
 };
 
 exports.update = async (
-  query: FilterQuery<ISubCategoryDocument>,
-  update: UpdateQuery<ISubCategoryDocument>,
-  options: QueryOptions = { new: true }
+  query,
+  update,
+  options
 ) => {
   const targetSubCategory = await SubCategory.findOneAndUpdate(
     query,

@@ -1,12 +1,12 @@
-const { omit } = require('lodash';
-const User = require('@src/models/mongoose/user.model';
+const { omit } = require('lodash');
+const User = require('@src/models/mongoose/user.model');
 
 exports.createUser = async (
   modelObject 
 )  => {
   try {
     return await User.create(modelObject);
-  } catch (error: any) {
+  } catch (error) {
     throw new Error(error);
   }
 };
@@ -24,10 +24,7 @@ exports.findUser = async (
 exports.validatePassword = async ({
   email,
   password,
-}: {
-  email: IUserDocument['email'];
-  password: string;
-}): Promise<false | Pick<LeanDocument<IUserDocument>, 'name'>> => {
+}) => {
   const user = await User.findOne({ email });
 
   if (!user) {

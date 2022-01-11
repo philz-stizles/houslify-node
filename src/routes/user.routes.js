@@ -16,7 +16,11 @@ const {
   resizeUserPhoto,
 } = require('../middlewares/multerMiddlewares');
 const { authenticate, authorize } = require('../middlewares/auth.middlewares');
+const apartmentRouter = require('./apartment.routes'); // Using Nested routes with express
+const realEstateRouter = require('./real-estate.routes'); // Using Nested routes with express
+const hotelRouter = require('./hotel.routes'); // Using Nested routes with express
 const bookingRouter = require('./booking.routes'); // Using Nested routes with express
+
 
 // Authenticate all routes after this middleware
 router.use(authenticate);

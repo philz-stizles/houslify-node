@@ -1,5 +1,5 @@
-require('dotenv-config');
-console.log(process.env.DB_SEQUELIZE_DIALECT);
+require('../../../dotenv-config');
+console.log('dialect', process.env.DB_DIALECT_DEV);
 module.exports = {
   development: {
     username: process.env.DB_USERNAME_DEV,

@@ -2,7 +2,7 @@
 const {
   Model
 } = require('sequelize');
-const  Address = require('./address');
+const Address = require('./address');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.hasMany(models.Address, { foreignKey: 'userId', as: 'addresses' });
     }
   }
   User.init(
@@ -113,16 +114,17 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'User',
+      tableName: 'users',
     }
   );
 
   // Here we associate which actually populates out pre-declared `association` static and other methods.
   // Addresses - one-to-many.
-  User.hasMany(Address, {
-    foreignKey: 'user_id', // this determines the name in `associations`!
-    as: 'addresses',
-  });
-  Address.belongsTo(User, { foreignKey: 'user_id' });
+  // User.hasMany(Address, {
+  //   foreignKey: 'user_id', // this determines the name in `associations`!
+  //   as: 'addresses',
+  // });
+  // Address.belongsTo(User, { foreignKey: 'user_id' });
 
   return User;
 };

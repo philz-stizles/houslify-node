@@ -3,7 +3,7 @@ const AppError = require('../errors/app.error');
 const { generateToken } = require('../services/security/token.services');
 const { catchAsync } = require('../utils/api.utils');
 const crypto = require('crypto');
-const User = require('../models/user.model');
+const User = require('../db/models/user');
 const { createAndSendTokenWithCookie } = require('../utils/api.utils');
 const {
   getTwoFactorAuthenticationCode,
@@ -12,6 +12,29 @@ const {
 } = require('../services/security/auth.services');
 
 // Authentication ***************************************************************** |
+exports.signup = catchAsync(async (req, res) => {
+  const { username, fullname, email, password, confirmPassword } = req.body;
+
+  const newUser = await User.create({
+    username,
+    fullname,
+    email,
+    password,
+    confirmPassword,
+  });
+
+  const token = newUser.generateToken();
+
+  res.status(201).json({
+    status: true,
+    data: {
+      loggedInUser: newUser,
+      token,
+    },
+    message: 'created successfully',
+  });
+});
+
 exports.signup = catchAsync(async (req, res) => {
   const { username, fullname, email, password, confirmPassword } = req.body;
 

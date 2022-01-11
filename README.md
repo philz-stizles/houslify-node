@@ -129,13 +129,27 @@ This is a real estate platform
 
       npx sequelize-cli init
 
+  Create database:
+  
+      npx sequelize-cli db:create
+
   Create model:
 
-      npx sequelize-cli model:generate --name User --attributes username:string,isActive:boolean,createdAt:date,updatedAt:date
+      npx sequelize-cli model:generate --name User --attributes username:string,age:integer,isActive:boolean,createdAt:date,updatedAt:date
 
   Run Migrations:
 
       npx sequelize-cli db:migrate
+
+  DataTypes.STRING    // VARCHAR(255)
+  DataTypes.TEXT      // Text
+  DataTypes.BOOLEAN   // TINYINT(1)
+  DataTypes.INTEGER   // Integer
+  DataTypes.FLOAT     // Float
+  DataTypes.DOUBLE    // Double
+  DataTypes.DECIMAL   // Decimal
+  DataTypes.DATE      // Date
+  DataTypes.DATEONLY  // Date without time
 
 ## File Uploads
 

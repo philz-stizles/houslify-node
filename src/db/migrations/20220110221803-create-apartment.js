@@ -1,35 +1,35 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Addresses', {
+    await queryInterface.createTable('Apartments', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      userId: {
+      name: {
+        type: Sequelize.STRING,
+      },
+      description: {
+        type: Sequelize.STRING,
+      },
+      bed: {
         type: Sequelize.INTEGER,
       },
-      address: {
-        type: Sequelize.STRING,
+      bath: {
+        type: Sequelize.INTEGER,
       },
-      city: {
-        type: Sequelize.STRING,
+      price: {
+        type: Sequelize.INTEGER,
       },
-      state: {
-        type: Sequelize.STRING,
+      size: {
+        type: Sequelize.INTEGER,
       },
-      code: {
-        type: Sequelize.STRING,
-      },
-      country: {
-        type: Sequelize.STRING,
-      },
-      isActive: {
+      isRecommended: {
         type: Sequelize.BOOLEAN,
       },
-      isPrimary: {
+      isActive: {
         type: Sequelize.BOOLEAN,
       },
       createdAt: {
@@ -39,9 +39,6 @@ module.exports = {
         type: Sequelize.DATE,
       },
       createdBy: {
-        type: Sequelize.INTEGER,
-      },
-      updatedBy: {
         type: Sequelize.INTEGER,
       },
       createdAt: {
@@ -55,6 +52,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Addresses');
+    await queryInterface.dropTable('Apartments');
   }
 };

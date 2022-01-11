@@ -1,16 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const {
-  createApartment,
-  updateApartment,
-  getAllApartments,
-  getFilteredApartments,
-  getApartment,
-  archiveApartment,
-  // getApartmentsWithin,
+  createRealEstate,
+  updateRealEstate,
+  getAllRealEstates,
+  getFilteredRealEstates,
+  getRealEstate,
+  archiveRealEstate,
+  // getRealEstatesWithin,
   // getDistances,
-  // getApartmentStats,
-} = require('../controllers/apartment.controllers');
+  // getRealEstateStats,
+} = require('../controllers/real-estate.controllers');
 // const { aliasTopTours } = require('../middlewares/aliasMiddlewares');
 // const { authenticate, authorize } = require('../middlewares/auth.middlewares');
 // const reviewRouter = require('./review.routes'); // Using Nested routes with express
@@ -50,10 +50,10 @@ const {
 
 router
   .route('/')
-  .post(createApartment)
-  .get(getAllApartments);
+  .post(createRealEstate)
+  .get(getAllRealEstates);
 
-router.route('/filtered').get(getFilteredApartments);
+router.route('/filtered').get(getFilteredRealEstates);
 
 router
   .route('/:id')
@@ -62,9 +62,9 @@ router
     // authorize('admin', 'lead-guide'),
     // uploadTourPhotos,
     // resizeTourPhotos,
-    updateApartment
+    updateRealEstate
   )
-  .get(getApartment)
-  .delete(archiveApartment);
+  .get(getRealEstate)
+  .delete(archiveRealEstate);
 
 module.exports = router;

@@ -1,48 +1,35 @@
-const Apartment = require('../db/models/apartment');
+const CoworkingSpace = require('../db/models/coworkingspace');
 const { catchAsync } = require('../utils/api.utils');
 const AppError = require('../errors/app.error');
-const ApartmentServices = require('../services/app/apartment.services');
+// const factory = require('./handler.factory');
 
-exports.createApartment = catchAsync(async (req, res, next) => {
-  
-  const createdApartment = await new ApartmentServices().create(req.body);
-  
-
+exports.createCoworkingSpace =  catchAsync(async (req, res, next) => {
   res
     .status(201)
-    .json({
-      status: true,
-      data: createdApartment,
-      message: 'Created successfully',
-    });
+    .json({ status: true, data: '', message: 'Created successfully' });
 });
 
-exports.getAllApartments = catchAsync(async (req, res, next) => {
-  const apartments = await ApartmentServices.findAll();
-
-  res.json({
-    status: true,
-    data: apartments,
-    message: 'Retrieved successfully',
-  });
-});
-
-exports.getFilteredApartments =  catchAsync(async (req, res, next) => {
+exports.getAllCoworkingSpaces =  catchAsync(async (req, res, next) => {
   res
     .json({ status: true, data: '', message: 'Retrieved successfully' });
 });
 
-exports.getApartment =  catchAsync(async (req, res, next) => {
+exports.getFilteredCoworkingSpaces =  catchAsync(async (req, res, next) => {
   res
     .json({ status: true, data: '', message: 'Retrieved successfully' });
 });
 
-exports.updateApartment =  catchAsync(async (req, res, next) => {
+exports.getCoworkingSpace =  catchAsync(async (req, res, next) => {
+  res
+    .json({ status: true, data: '', message: 'Retrieved successfully' });
+});
+
+exports.updateCoworkingSpace =  catchAsync(async (req, res, next) => {
   res
     .json({ status: true, data: '', message: 'Updated successfully' });
 });
 
-exports.archiveApartment = catchAsync(async (req, res, next) => {
+exports.archiveCoworkingSpace = catchAsync(async (req, res, next) => {
   res.json({ status: true, data: '', message: 'Deleted successfully' });
 });
 

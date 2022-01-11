@@ -1,16 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const {
-  createApartment,
-  updateApartment,
-  getAllApartments,
-  getFilteredApartments,
-  getApartment,
-  archiveApartment,
-  // getApartmentsWithin,
+  createCoworkingSpace,
+  updateCoworkingSpace,
+  getAllCoworkingSpaces,
+  getFilteredCoworkingSpaces,
+  getCoworkingSpace,
+  archiveCoworkingSpace,
+  // getCoworkingSpacesWithin,
   // getDistances,
-  // getApartmentStats,
-} = require('../controllers/apartment.controllers');
+  // getCoworkingSpaceStats,
+} = require('../controllers/coworking-space.controllers');
 // const { aliasTopTours } = require('../middlewares/aliasMiddlewares');
 // const { authenticate, authorize } = require('../middlewares/auth.middlewares');
 // const reviewRouter = require('./review.routes'); // Using Nested routes with express
@@ -50,10 +50,10 @@ const {
 
 router
   .route('/')
-  .post(createApartment)
-  .get(getAllApartments);
+  .post(createCoworkingSpace)
+  .get(getAllCoworkingSpaces);
 
-router.route('/filtered').get(getFilteredApartments);
+router.route('/filtered').get(getFilteredCoworkingSpaces);
 
 router
   .route('/:id')
@@ -62,9 +62,9 @@ router
     // authorize('admin', 'lead-guide'),
     // uploadTourPhotos,
     // resizeTourPhotos,
-    updateApartment
+    updateCoworkingSpace
   )
-  .get(getApartment)
-  .delete(archiveApartment);
+  .get(getCoworkingSpace)
+  .delete(archiveCoworkingSpace);
 
 module.exports = router;

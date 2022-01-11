@@ -1,4 +1,4 @@
-const User = require('../models/user.model');
+const User = require('../db/models/user');
 const AppError = require('../errors/app.error');
 const { verifyToken } = require('../services/security/token.services');
 const { catchAsync } = require('../utils/api.utils');

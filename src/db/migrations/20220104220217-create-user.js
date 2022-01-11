@@ -15,17 +15,17 @@ module.exports = {
         type: Sequelize.STRING,
       },
       email: {
-        type: DataTypes.STRING(70),
+        type: Sequelize.STRING(70),
         allowNull: false, // Both a Validator & Constraint
         unique: true,
       },
       username: {
-        type: DataTypes.STRING(30),
+        type: Sequelize.STRING(30),
         allowNull: true,
         unique: true,
       },
       password: {
-        type: DataTypes.STRING(120),
+        type: Sequelize.STRING(120),
         allowNull: false,
       },
       isTwoFactorAuthenticationEnabled: {
