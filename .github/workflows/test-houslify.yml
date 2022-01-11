@@ -13,7 +13,10 @@ env:
   DB_DIALECT : postgres
   NODE_ENV : test
   APP_PORT : 4000
-  SECRET : TOP_SECRET
+  GOOGLE_CLIENT_ID : ${{secrets.GOOGLE_CLIENT_ID}}
+  GOOGLE_CLIENT_SECRET : ${{secrets.GOOGLE_CLIENT_SECRET}}
+  FACEBOOK_APP_ID : ${{secrets.GOOGLE_CLIENT_ID}}
+  FACEBOOK_APP_SECRET : ${{secrets.FACEBOOK_APP_SECRET}}
   ENCRYPTION_KEY : ${{secrets.ENCRYPTION_KEY}}
   
 jobs:  
@@ -54,7 +57,7 @@ jobs:
         echo "SECRET=${SECRET}" >> .env
         echo "ENCRYPTION_KEY=${ENCRYPTION_KEY}" >> .env
 
-    - run: npm install && npm run test:ci
+    - run: npm install && npm run test
 
     - name: Heroku login credentials
       run: |
