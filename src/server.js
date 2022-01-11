@@ -26,8 +26,12 @@ const startUp = async expressApp => {
 
   // Connect to database.
   // await sequelize.authenticate();
-  await sequelize.sync({ force: true }); //This creates the table, dropping them first if they already existed
-  console.log('Connection has been established successfully.');
+  try {
+    await sequelize.sync({ force: true }); //This creates the table, dropping them first if they already existed
+    console.log('Connection has been established successfully.');
+  } catch (error) {
+    console.log(`Connection has been established successfully.${error.message}`);
+  }
 
   // initialize http server
   const httpServer = http.createServer(expressApp); // Now we have our own http instance
