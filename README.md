@@ -390,3 +390,15 @@ npm run test
 // CHALLENGES => TODO
 // Users can only review a tour that they have actually booked
 # hously-node
+
+"scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    // "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
+    "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli",
+    "test": "cross-env NODE_ENV=test jest --testTimeout=10000",
+    "test:ci": "cross-env NODE_ENV=test jest --testTimeout=10000",
+    "test:watch": "cross-env NODE_ENV=test jest --watchAll",
+    "pretest": "cross-env NODE_ENV=test npm run db:reset",
+    "db:create:test": "cross-env NODE_ENV=test npx sequelize-cli db:create"
+  },
