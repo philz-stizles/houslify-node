@@ -395,7 +395,7 @@ npm run test
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
     // "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
-    "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli",
+    "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate",
     "test": "cross-env NODE_ENV=test jest --testTimeout=10000",
     "test:ci": "cross-env NODE_ENV=test jest --testTimeout=10000",
     "test:watch": "cross-env NODE_ENV=test jest --watchAll",
