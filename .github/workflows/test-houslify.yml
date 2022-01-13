@@ -53,7 +53,7 @@ jobs:
         echo "DB_PASS_TEST=${DB_PASS}" >> .env
         echo "DB_NAME_TEST=${DB_NAME}" >> .env
         echo "DB_HOST_TEST=${DB_HOST}" >> .env
-        echo "DB_DIALECT=${DB_DIALECT}" >> .env
+        echo "DB_DIALECT_TEST=${DB_DIALECT}" >> .env
         echo "GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}" >> .env
         echo "GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}" >> .env
         echo "FACEBOOK_APP_ID=${FACEBOOK_APP_ID}" >> .env
