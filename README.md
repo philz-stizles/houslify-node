@@ -1,5 +1,7 @@
 # Hously
 
+![example workflow](https://github.com/philz-stizles/houslify-node/actions/workflows/test-houslify.yml/badge.svg)
+
 ## Introduction
 
 This is a real estate platform

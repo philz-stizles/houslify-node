@@ -3,6 +3,7 @@ const passport = require('passport');
 const router = express.Router();
 const {
   signup,
+  googleLogin,
   login,
   loginWith2FA,
   turnOnTwoFactorAuth,
@@ -22,18 +23,24 @@ const {
 } = require('../middlewares/auth.middlewares');
 
 /* google routes ====================================================== */
-router.get(
+router.post(
   "/google",
-  passport.authenticate("google", { scope: ["profile", "email"] })
+  passport.authenticate("google-token", { session: false }),
+  googleLogin
 );
 
-router.get(
-  "/google/callback",
-  passport.authenticate("google"),
-  (req, res) => {
-    res.redirect("/profile"); // login case - redirect to profile page
-  }
-);
+// router.get(
+//   "/google",
+//   passport.authenticate("google", { scope: ["profile", "email"] })
+// );
+
+// router.get(
+//   "/google/callback",
+//   passport.authenticate("google"),
+//   (req, res) => {
+//     res.redirect("/profile"); // login case - redirect to profile page
+//   }
+// );
 
 /* facebook routes ==================================================== */
 router.get("/facebook", passport.authenticate("facebook"));

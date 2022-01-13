@@ -25,9 +25,9 @@ const startUp = async expressApp => {
   }
 
   // Connect to database.
-  // await sequelize.authenticate();
   try {
-    await sequelize.sync({ force: true }); //This creates the table, dropping them first if they already existed
+    await sequelize.authenticate();
+    // await sequelize.sync({ force: true }); //This creates the table, dropping them first if they already existed
     console.log('Connection has been established successfully.');
   } catch (error) {
     console.log(`Connection has been established successfully.${error.message}`);

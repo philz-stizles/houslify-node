@@ -4,25 +4,25 @@ module.exports = [
     description: 'User signup and signin',
   },
   {
-    name: 'Vendors',
+    name: 'Users',
     description: 'Vendor CRUD operations',
   },
   {
-    name: 'Customers',
+    name: 'Apartments',
     description: 'Management APIs to create, read, update and delete customers',
   },
   {
-    name: 'Categories',
+    name: 'Hotels',
     description:
       'Management APIs to create, read, update and delete categories',
   },
   {
-    name: 'Sub Categories',
+    name: 'Coworking Space',
     description:
       'Management APIs to create, read, update and delete sub-categories',
   },
   {
-    name: 'Products',
+    name: 'Real Estate',
     description: 'Product CRUD operations',
   },
   {
@@ -30,23 +30,27 @@ module.exports = [
     description: 'Coupon CRUD operations',
   },
   {
-    name: 'Cart',
+    name: 'Bookings',
     description: 'Cart management',
   },
   {
-    name: 'Orders',
+    name: 'Transactions',
     description: 'Order CRUD operations',
   },
   {
-    name: 'Audit',
+    name: 'Agreements',
     description: 'Audit CRUD operations',
   },
   {
-    name: 'Maker Checker',
+    name: 'Documents',
     description: 'Maker-checker CRUD operations',
   },
   {
-    name: 'Logs',
+    name: 'Locations',
+    description: 'Event logs CRUD operations',
+  },
+  {
+    name: 'Reviews',
     description: 'Event logs CRUD operations',
   },
 ];

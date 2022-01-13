@@ -1,5 +1,5 @@
 module.exports = {
-  Coupon: {
+  Product: {
     type: 'object',
     required: ['name', 'expiry', 'discount'], // data type
     properties: {
@@ -37,7 +37,7 @@ module.exports = {
       updatedAt: '2021-11-12 02:03:00',
     },
   },
-  CouponInput: {
+  ProductInput: {
     type: 'object',
     required: ['name', 'expiry', 'discount'], // data type
     properties: {

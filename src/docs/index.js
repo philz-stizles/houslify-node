@@ -1,24 +1,15 @@
-const basicInfo = require('./basicInfo');
+const info = require('./info');
 const servers = require('./servers');
 const components = require('./components');
 const tags = require('./tags');
-const auth = require('./paths/auth');
-const users = require('./paths/users');
-const categories = require('./paths/categories');
-const coupons = require('./paths/coupons');
-const tours = require('./paths/tours');
+const paths = require('./paths');
 
 module.exports = {
-  ...basicInfo,
+  openapi: '3.0.3', // present supported openapi version
+  info,
   servers,
   components,
   tags,
-  paths: {
-    ...auth,
-    ...users,
-    ...categories,
-    ...coupons,
-    ...tours,
-  },
+  paths,
   // security: [{ bearerAuth: [] }], this applies
 };

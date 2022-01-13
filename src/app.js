@@ -12,7 +12,8 @@ const swaggerUI = require('swagger-ui-express');
 const passport = require('passport');
 let cookieSession = require('cookie-session');
 const keys = require('./config/keys');
-require('./services/security/passport');
+// require('./db/models/user');
+// require('./services/security/passport');
 // Middlewares.
 const globalErrorHandler = require('./middlewares/error.middleware');
 const notFoundHandler = require('./middlewares/notfound.middleware');
@@ -26,19 +27,19 @@ app.enable('trust proxy');
 // CORS
 app.use(
   cors({
+    origin: true
     // origin: 'https://someurl.com'
   })
 ); // cors() is a middleware which means that you can implement on specific routes as middleware
 
-app.options('*', cors());
+// app.options('*', cors());
 // app.options('/api/v1/tours/:id', cors()) // You can also use for specific routes
 
 // SERVING STATIC FILES
 // app.use(express.static(path.join(__dirname, 'static')))
-app.use(express.static(path.join(__dirname, 'public'))); // This says, anytime there is a request from the
-// server, look in the public folder e.g for http://localhost:5000/overview.html, overview should be placed
-// in the root of the public folder
-app.use(express.static(path.join(__dirname, 'uploads')));
+app.use(express.static(path.join(__dirname, 'public'))); // This says, anytime there is a 
+// request from the server, look in the public folder e.g for http://localhost:5000/overview.html, 
+// overview should be placed in the root of the public folder
 
 // SECURITY - Anti Cross-site Scripting - Security HTTP headers
 app.use(
@@ -111,19 +112,19 @@ app.use(passport.session());
 // API Resource Routes ****************************************************** |
 const api = process.env.API_ROOT;
 const version = process.env.API_VERSION;
-
+console.log(`${api}${version}/auth`);
 app.use(`${api}${version}/auth`, require('./routes/auth.routes'));
 // app.use(`${api}${version}/users`, require('./routes/user.routes'));
 app.use(`${api}${version}/apartments`, require('./routes/apartment.routes'));
 app.use(`${api}${version}/hotels`, require('./routes/hotel.routes'));
-app.use(`${api}${version}/real-estate`, require('./routes/real-estate.routes'));
-app.use(`${api}${version}/coworking-space`, require('./routes/coworking-space.routes'));
+// app.use(`${api}${version}/real-estate`, require('./routes/real-estate.routes'));
+// app.use(`${api}${version}/coworking-space`, require('./routes/coworking-space.routes'));
 // app.use(`${api}${version}/bookings`, require('./routes/booking.routes'));
-// app.use(`${api}${version}/categories`, require('./routes/category.routes'));
 // app.use(`${api}${version}/reviews`, require('./routes/review.routes'));
-// app.use(`${api}${version}/notifications`, require('./routes/review.routes'));
+// app.use(`${api}${version}/notifications`, require('./routes/notification.routes'));
 // app.use(`${api}${version}/transactions`, require('./routes/transaction.routes'));
 // app.use(`${api}${version}/subscriptions`, require('./routes/subscription.routes'));
+// app.use(`${api}${version}/addresses`, require('./routes/address.routes'));
 // app.use(`${api}${version}/locations`, require('./routes/location.routes'));
 
 // API Documentation ******************************************************** |

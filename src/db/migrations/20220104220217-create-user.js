@@ -8,6 +8,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      googleId: {
+        type: Sequelize.STRING,
+        unique: true,
+        field: 'google_id',
+      },
       firstName: {
         type: Sequelize.STRING,
       },

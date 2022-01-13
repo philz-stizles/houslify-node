@@ -3,6 +3,7 @@ const AppError = require('../errors/app.error');
 const { generateToken } = require('../services/security/token.services');
 const { catchAsync } = require('../utils/api.utils');
 const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
 const User = require('../db/models/user');
 const { createAndSendTokenWithCookie } = require('../utils/api.utils');
 const {
@@ -10,6 +11,7 @@ const {
   verifyTwoFactorAuthenticationCode,
   respondWithQRCode,
 } = require('../services/security/auth.services');
+const UserService = require('../services/app/user.services');
 
 // Authentication ***************************************************************** |
 exports.signup = catchAsync(async (req, res) => {
@@ -35,26 +37,25 @@ exports.signup = catchAsync(async (req, res) => {
   });
 });
 
-exports.signup = catchAsync(async (req, res) => {
-  const { username, fullname, email, password, confirmPassword } = req.body;
+exports.googleLogin = catchAsync(async (req, res, next) => {
+  console.log('googleLogin', req.user);
+  if (!req.user) {
+    return next(new AppError(401, 'User was not authenticated'));
+  }
 
-  const newUser = await User.create({
-    username,
-    fullname,
-    email,
-    password,
-    confirmPassword,
-  });
+  const { email } = req.user;
 
-  const token = newUser.generateToken();
+  const user = await UserService.findOne({ email });
+  
+  const token = jwt.sign(user.id, process.env.JWT_AUTH_TOKEN)
 
   res.status(201).json({
     status: true,
     data: {
-      loggedInUser: newUser,
+      user,
       token,
     },
-    message: 'created successfully',
+    message: 'Login successful',
   });
 });
 

@@ -2,7 +2,7 @@
 const {
   Model
 } = require('sequelize');
-const Address = require('./address');
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -17,13 +17,23 @@ module.exports = (sequelize, DataTypes) => {
   }
   User.init(
     {
+      googleId: {
+        type: DataTypes.STRING,
+        unique: true, // Constraint - SequelizeUniqueConstraintError
+        field: 'google_id',
+      },
+      provider: {
+        type: DataTypes.STRING,
+      },
       firstName: {
         type: DataTypes.STRING(50),
         allowNull: false,
+        field: 'first_name',
       },
       lastName: {
         type: DataTypes.STRING(50),
         allowNull: false,
+        field: 'last_name',
       },
       fullName: {
         type: DataTypes.VIRTUAL,
@@ -104,8 +114,16 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: true,
         field: 'is_active',
       },
-      isTwoFactorAuthenticationEnabled: DataTypes.BOOLEAN,
-      twoFactorAuthenticationCode: DataTypes.STRING,
+      isTwoFactorAuthenticationEnabled: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        field: 'is_two_factor_authentication_enabled',
+      },
+      twoFactorAuthenticationCode: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        field: 'two_factor_authentication_code',
+      },
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
       createdBy: DataTypes.STRING,
