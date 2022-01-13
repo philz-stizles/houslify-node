@@ -8,9 +8,10 @@ module.exports = {
   coveragePathIgnorePatterns: [
     '<rootDir>/build/',
     '<rootDir>/node_modules/',
-    '<rootDir>/src/@types/',
+    '<rootDir>/src/config/',
     '<rootDir>/src/docs/',
     '<rootDir>/src/graphql/',
+    '<rootDir>/src/db/',
   ],
   coverageThreshold: {
     global: {

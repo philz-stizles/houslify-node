@@ -1,6 +1,6 @@
-const fs, { PathLike } = require('fs'
-const { S3, AWSError } = require('aws-sdk'
-const AWS = require('../../services copy/aws/index'
+const fs = require('fs');
+const { S3, AWSError } = require('aws-sdk');
+const AWS = require('../../services copy/aws/index');
 
 // const s3 = new AWS.S3({
 //   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -11,21 +11,21 @@ const AWS = require('../../services copy/aws/index'
 const s3 = new AWS.S3({ apiVersion: '2010-12-01' })
 
 exports.uploadDoc = (
-    name: string,
-    file: PathLike,
-    type: string,
+    name,
+    file,
+    type,
     // eslint-disable-next-line no-unused-vars
-    cb: (error: Error, data: S3.ManagedUpload.SendData) => void,
-): void => {
-    const params: S3.PutObjectRequest = {
-        Bucket: process.env.AWS_BUCKET_NAME as string,
+    cb,
+)=> {
+    const params = {
+        Bucket: process.env.AWS_BUCKET_NAME,
         Key: `${process.env.AWS_BUCKET_ROOT_DIR}${name}`,
         Body: fs.readFileSync(file),
         ACL: 'public-read',
         ContentType: type,
     }
 
-    s3.upload(params, function (error: Error, data: S3.ManagedUpload.SendData) {
+    s3.upload(params, function (error, data) {
         if (error) {
             console.log('S3 DOCUMENT COULD NOT BE UPLOADED', error)
         } else {
@@ -36,14 +36,13 @@ exports.uploadDoc = (
 }
 
 exports.uploadDocBase64 = (
-    name: string,
-    base64Data: S3.Body,
-    contentType: string,
-    // eslint-disable-next-line no-unused-vars
-    cb: (error: Error, data: S3.ManagedUpload.SendData) => void,
-): void => {
-    const params: S3.PutObjectRequest = {
-        Bucket: process.env.AWS_BUCKET_NAME as string,
+    name,
+    base64Data,
+    contentType,
+    cb,
+)=> {
+    const params = {
+        Bucket: process.env.AWS_BUCKET_NAME,
         Key: `${process.env.AWS_BUCKET_ROOT_DIR}${name}`,
         Body: base64Data,
         ACL: 'public-read',
@@ -51,7 +50,7 @@ exports.uploadDocBase64 = (
         ContentType: contentType,
     }
 
-    s3.upload(params, function (error: Error, data: S3.ManagedUpload.SendData) {
+    s3.upload(params, function (error, data) {
         if (error) {
             console.log('S3 DOCUMENT COULD NOT BE UPLOADED', error)
         } else {
@@ -62,18 +61,17 @@ exports.uploadDocBase64 = (
 }
 
 exports.removeDoc = (
-    key: string,
-    // eslint-disable-next-line no-unused-vars
-    cb: (err: AWSError, data: S3.DeleteObjectOutput) => void,
-): void => {
-    const params: S3.DeleteObjectRequest = {
-        Bucket: process.env.AWS_BUCKET_NAME as string,
+    key,
+    cb,
+)=> {
+    const params = {
+        Bucket: process.env.AWS_BUCKET_NAME,
         Key: key,
     }
 
     s3.deleteObject(
         params,
-        function (error: AWSError, data: S3.DeleteObjectOutput) {
+        function (error, data) {
             if (error) {
                 console.log('S3 DOCUMENT COULD NOT BE DELETED', error)
             } else {

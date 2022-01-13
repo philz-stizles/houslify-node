@@ -9,9 +9,9 @@ const cors = require('cors');
 const compression = require('compression');
 const cookieParser = require('cookie-parser');
 const swaggerUI = require('swagger-ui-express');
-const passport = require('passport');
-let cookieSession = require('cookie-session');
-const keys = require('./config/keys');
+// const passport = require('passport');
+// let cookieSession = require('cookie-session');
+// const keys = require('./config/keys');
 // require('./db/models/user');
 // require('./services/security/passport');
 // Middlewares.
@@ -98,25 +98,24 @@ app.use(
 app.use(compression());
 
 /* ================ Creating Cookie Key and link with Passport JS: Start ================  */
-app.use(
-  cookieSession({
-    maxAge: 30 * 86400 * 1000, // expire in 30 days(milliseconds)
-    keys: [keys.COOKIE_KEY]
-  })
-);
+// app.use(
+//   cookieSession({
+//     maxAge: 30 * 86400 * 1000, // expire in 30 days(milliseconds)
+//     keys: [keys.COOKIE_KEY]
+//   })
+// );
 
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 /* ================ Creating Cookie Key and link with Passport JS: End ==================  */
 
 // API Resource Routes ****************************************************** |
 const api = process.env.API_ROOT;
 const version = process.env.API_VERSION;
-console.log(`${api}${version}/auth`);
-app.use(`${api}${version}/auth`, require('./routes/auth.routes'));
+// app.use(`${api}${version}/auth`, require('./routes/auth.routes'));
 // app.use(`${api}${version}/users`, require('./routes/user.routes'));
 app.use(`${api}${version}/apartments`, require('./routes/apartment.routes'));
-app.use(`${api}${version}/hotels`, require('./routes/hotel.routes'));
+// app.use(`${api}${version}/hotels`, require('./routes/hotel.routes'));
 // app.use(`${api}${version}/real-estate`, require('./routes/real-estate.routes'));
 // app.use(`${api}${version}/coworking-space`, require('./routes/coworking-space.routes'));
 // app.use(`${api}${version}/bookings`, require('./routes/booking.routes'));

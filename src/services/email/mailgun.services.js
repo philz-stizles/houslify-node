@@ -1,5 +1,5 @@
-const FormData = require('form-data';
-const Mailgun = require('mailgun.js';
+const FormData = require('form-data');
+const Mailgun = require('mailgun.js');
 
 const mailgun = new Mailgun(FormData);
 

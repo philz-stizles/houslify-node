@@ -7,9 +7,9 @@
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
     "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate",
-    "test": "cross-env NODE_ENV=test jest --testTimeout=10000 --coverage",
-    "test:ci": "cross-env NODE_ENV=test jest --testTimeout=10000 --coverage",
-    "test:watch": "cross-env NODE_ENV=test jest --watchAll",
+    "test": "cross-env NODE_ENV=test jest --coverage --testTimeout=10000 --detectOpenHandles",
+    "test:ci": "cross-env NODE_ENV=test jest --coverage --testTimeout=10000 --detectOpenHandles",
+    "test:watch": "cross-env NODE_ENV=test jest --watchAll --detectOpenHandles",
     "pretest": "cross-env NODE_ENV=test npm run db:reset",
     "db:create:test": "cross-env NODE_ENV=test npx sequelize-cli db:create"
   },

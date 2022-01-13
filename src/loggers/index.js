@@ -1,5 +1,5 @@
 const logger = require('pino');
-const dayjs = require('dayjs';
+const dayjs = require('dayjs');
 
 const log = logger({
   prettyPrint: true,
