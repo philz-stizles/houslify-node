@@ -67,6 +67,11 @@ jobs:
 
     - run: npm install && npm run test
 
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1
+      with:
+        token: ${{ secrets.CODECOV_SECRET_TOKEN }}
+
     - name: Check out repository
       uses: actions/checkout@v2
       with:

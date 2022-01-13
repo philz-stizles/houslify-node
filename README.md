@@ -1,6 +1,7 @@
-# Hously
+# Houslify
 
 ![example workflow](https://github.com/philz-stizles/houslify-node/actions/workflows/test-houslify.yml/badge.svg)
+[![codecov](https://codecov.io/gh/philz-stizles/houslify-node/branch/main/graph/badge.svg?token=G5FWOA2QK1)](https://codecov.io/gh/philz-stizles/houslify-node)
 
 ## Introduction
 
