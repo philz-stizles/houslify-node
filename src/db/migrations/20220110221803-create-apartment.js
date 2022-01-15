@@ -14,10 +14,10 @@ module.exports = {
       description: {
         type: Sequelize.STRING,
       },
-      bed: {
+      beds: {
         type: Sequelize.INTEGER,
       },
-      bath: {
+      baths: {
         type: Sequelize.INTEGER,
       },
       price: {
