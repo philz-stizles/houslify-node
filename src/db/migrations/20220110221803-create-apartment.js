@@ -29,6 +29,9 @@ module.exports = {
       isRecommended: {
         type: Sequelize.BOOLEAN,
       },
+      isPrepaid: {
+        type: Sequelize.BOOLEAN,
+      },
       isActive: {
         type: Sequelize.BOOLEAN,
       },
