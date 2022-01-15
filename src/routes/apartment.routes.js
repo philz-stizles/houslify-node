@@ -11,8 +11,9 @@ const {
   // getDistances,
   // getApartmentStats,
 } = require('../controllers/apartment.controllers');
+const { requestValidation, apartmentCreateValidator } = require('../middlewares/validation.middlewares');
 // const { aliasTopTours } = require('../middlewares/aliasMiddlewares');
-// const { authenticate, authorize } = require('../middlewares/auth.middlewares');
+const { authenticate, authorize } = require('../middlewares/auth.middlewares');
 // const reviewRouter = require('./review.routes'); // Using Nested routes with express
 // const bookingRouter = require('./booking.routes'); // Using Nested routes with express
 // const {
@@ -50,7 +51,12 @@ const {
 
 router
   .route('/')
-  .post(createApartment)
+  .post(
+    authenticate,
+    apartmentCreateValidator,
+    requestValidation,
+    createApartment
+  )
   .get(getAllApartments);
 
 router.route('/filtered').get(getFilteredApartments);

@@ -1,4 +1,4 @@
-const User = require('../db/models/user');
+const UserService = require('../services/app/user.services');
 const AppError = require('../errors/app.error');
 const { verifyToken } = require('../services/security/token.services');
 const { catchAsync } = require('../utils/api.utils');
@@ -16,36 +16,37 @@ exports.authenticate = catchAsync(async (req, res, next) => {
   }
 
   if (!token)
-    return next(new AppError('You are not logged in. Please log', 401));
+    return next(new AppError(401, 'You are not logged in. Please log'));
 
   // Check if token is valid
   const decodedToken = await verifyToken(token);
+  console.log(decodedToken);
   if (!decodedToken)
-    return next(new AppError('You are not authorized. Please log', 401));
+    return next(new AppError(401, 'You are not authorized. Please log'));
 
   // Check if user exists(or if a previously existing user with a valid token has been deleted)
   // and return user if true
-  const existingUser = await User.findById(decodedToken.id);
+  const existingUser = await UserService.findOne({ id: decodedToken.id });
   if (!existingUser)
     return next(
-      new AppError('You no longer have acccess to this resource', 401)
+      new AppError(401, 'You no longer have access to this resource')
     );
 
   // Check if user changed password after JWT was created
-  const passwordChangedAfterTokenGen =
-    existingUser.isPasswordChangedAfterTokenGen(decodedToken.iat);
-  if (passwordChangedAfterTokenGen)
-    return next(
-      new AppError(
-        'User recently changed their password! Please log in again.',
-        401
-      )
-    );
+  // const passwordChangedAfterTokenGen =
+  //   existingUser.isPasswordChangedAfterTokenGen(decodedToken.iat);
+  // if (passwordChangedAfterTokenGen)
+  //   return next(
+  //     new AppError(
+  //       401,
+  //       'User recently changed their password! Please log in again.'
+  //     )
+  //   );
 
   // Grant access to protected route
   req.user = existingUser;
-  res.locals.user = existingUser; // For view
-  res.locals.isAuthenticated = true; // For view
+  // res.locals.user = existingUser; // For view
+  // res.locals.isAuthenticated = true; // For view
 
   next();
 });

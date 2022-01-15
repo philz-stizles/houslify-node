@@ -9,11 +9,6 @@ const cors = require('cors');
 const compression = require('compression');
 const cookieParser = require('cookie-parser');
 const swaggerUI = require('swagger-ui-express');
-// const passport = require('passport');
-// let cookieSession = require('cookie-session');
-// const keys = require('./config/keys');
-// require('./db/models/user');
-// require('./services/security/passport');
 // Middlewares.
 const globalErrorHandler = require('./middlewares/error.middleware');
 const notFoundHandler = require('./middlewares/notfound.middleware');
@@ -25,12 +20,15 @@ const app = express();
 app.enable('trust proxy');
 
 // CORS
-app.use(
-  cors({
-    origin: true
-    // origin: 'https://someurl.com'
-  })
-); // cors() is a middleware which means that you can implement on specific routes as middleware
+if ((process.env.NODE_ENV = 'development')) {
+  app.use(cors({ origin: `http://localhost:3000` }));
+}
+// app.use(
+//   cors({
+//     origin: true
+//     // origin: 'https://someurl.com'
+//   })
+// ); // cors() is a middleware which means that you can implement on specific routes as middleware
 
 // app.options('*', cors());
 // app.options('/api/v1/tours/:id', cors()) // You can also use for specific routes
@@ -97,22 +95,10 @@ app.use(
 // Compression.
 app.use(compression());
 
-/* ================ Creating Cookie Key and link with Passport JS: Start ================  */
-// app.use(
-//   cookieSession({
-//     maxAge: 30 * 86400 * 1000, // expire in 30 days(milliseconds)
-//     keys: [keys.COOKIE_KEY]
-//   })
-// );
-
-// app.use(passport.initialize());
-// app.use(passport.session());
-/* ================ Creating Cookie Key and link with Passport JS: End ==================  */
-
 // API Resource Routes ****************************************************** |
 const api = process.env.API_ROOT;
 const version = process.env.API_VERSION;
-// app.use(`${api}${version}/auth`, require('./routes/auth.routes'));
+app.use(`${api}${version}/auth`, require('./routes/auth.routes'));
 // app.use(`${api}${version}/users`, require('./routes/user.routes'));
 app.use(`${api}${version}/apartments`, require('./routes/apartment.routes'));
 // app.use(`${api}${version}/hotels`, require('./routes/hotel.routes'));

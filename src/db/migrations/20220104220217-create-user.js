@@ -8,16 +8,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      googleId: {
-        type: Sequelize.STRING,
-        unique: true,
-        field: 'google_id',
-      },
       firstName: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(32),
       },
       lastName: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(32),
       },
       email: {
         type: Sequelize.STRING(70),
@@ -36,11 +31,11 @@ module.exports = {
       isTwoFactorAuthenticationEnabled: {
         type: Sequelize.BOOLEAN,
       },
+      role: {
+        type: Sequelize.STRING(25),
+      },
       isActive: {
         type: Sequelize.BOOLEAN,
-      },
-      createdAt: {
-        type: Sequelize.DATE,
       },
       updatedAt: {
         type: Sequelize.DATE,

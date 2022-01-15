@@ -1,3 +1,4 @@
+const crypto = require('crypto');
 const AppError = require('../../errors/app.error');
 const { User } = require('../../db/models');
 
@@ -30,6 +31,23 @@ class UserService {
     return await User.findAll(query ? query : {});
   }
 
+  static async authenticate(credentials) {
+    // Check if user exists
+    const existingUser = await UserService.findOne({ email });
+    if (!existingUser) {
+      throw new AppError(400, 'Incorrect email or password');
+    }
+
+    // Check if password matches
+    const isAuthenticated =
+      existingUser.hashedPassword === encryptPassword(password, existingUser.salt);
+    if (!isAuthenticated) {
+      throw new AppError(400, 'Incorrect email or password');
+    }
+
+    return existingUser;
+  }
+
   static async findOne(where, include) {
     return await User.findOne({
       // attributes: ['id', 'title'],
@@ -38,11 +56,11 @@ class UserService {
   }
 
   static async existsAsync(query, include = null) {
-    console.log(query)
-    const options = {}
+    console.log(query);
+    const options = {};
 
     if (include && typeof include === 'string') {
-      options.include = include
+      options.include = include;
     }
 
     if (query) {

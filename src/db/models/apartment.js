@@ -11,26 +11,27 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
     }
   };
   Apartment.init(
     {
       name: DataTypes.STRING,
       description: DataTypes.STRING,
-      bed: DataTypes.INTEGER,
-      bath: DataTypes.INTEGER,
+      beds: DataTypes.INTEGER,
+      baths: DataTypes.INTEGER,
       price: DataTypes.INTEGER,
       size: DataTypes.INTEGER,
+      isPrepaid: DataTypes.BOOLEAN,
       isRecommended: DataTypes.BOOLEAN,
       isActive: DataTypes.BOOLEAN,
-      createdAt: DataTypes.DATE,
-      updatedAt: DataTypes.DATE,
       createdBy: DataTypes.INTEGER,
     },
     {
       sequelize,
+      timestamps: true,
       modelName: 'Apartment',
-      tableName: 'apartments'
+      tableName: 'apartments',
     }
   );
   return Apartment;

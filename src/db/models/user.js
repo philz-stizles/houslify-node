@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const crypto = require('crypto');
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -13,25 +14,30 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.hasMany(models.Address, { foreignKey: 'userId', as: 'addresses' });
+      this.hasMany(models.Apartment, { foreignKey: 'userId', as: 'apartments' });
+      this.hasMany(models.Hotel, {
+        foreignKey: 'userId',
+        as: 'hotels',
+      });
+      this.hasMany(models.RealEstate, {
+        foreignKey: 'userId',
+        as: 'realEstates',
+      });
+      this.hasMany(models.CoWorkingSpace, {
+        foreignKey: 'userId',
+        as: 'coworkingSpaces',
+      });
     }
   }
   User.init(
     {
-      googleId: {
-        type: DataTypes.STRING,
-        unique: true, // Constraint - SequelizeUniqueConstraintError
-        field: 'google_id',
-      },
-      provider: {
-        type: DataTypes.STRING,
-      },
       firstName: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.STRING(32),
         allowNull: false,
         field: 'first_name',
       },
       lastName: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.STRING(32),
         allowNull: false,
         field: 'last_name',
       },
@@ -52,11 +58,6 @@ module.exports = (sequelize, DataTypes) => {
           // this.setDataValue('username', value.trim());
         },
       },
-      // Creating two objects with the same value will throw an error. The unique property can be either a
-      // boolean, or a string. If you provide the same string for multiple columns, they will form a
-      // composite unique key.
-      // uniqueOne: { type: DataTypes.STRING, unique: 'compositeIndex' },
-      // uniqueTwo: { type: DataTypes.INTEGER, unique: 'compositeIndex' },
       email: {
         type: DataTypes.STRING,
         allowNull: false, // Both a Validator & Constraint
@@ -68,24 +69,29 @@ module.exports = (sequelize, DataTypes) => {
           this.setDataValue('email', value.toLowerCase());
         },
       },
-      password: {
+      salt: {
+        type: DataTypes.STRING,
+      },
+      hashedPassword: {
         type: DataTypes.STRING(120),
         allowNull: false,
-        // is: /^[0-9a-f]{64}$/i,
+        field: 'hashed_password',
         validate: {
           len: [6, 50],
         },
-        // async set(value) {
-        //   /// Generate salt
-        //   const salt = await bcrypt.genSalt(12);
-
-        //   // Encrypt password
-        //   const hashedPassword = await bcrypt.hash(value + this.username, salt);
-        //   this.setDataValue('password', hashedPassword);
-
-        //   // Delete confirmPassword field
-        //   // this.setDataValue('confirmPassword', undefined);
-        // },
+        set(value) {
+          // Encrypt password
+          this.setDataValue(
+            'salt',
+            Math.round(new Date().valueOf() * Math.random()) + ''
+          );
+          console.log('SALT IN HASHEDPASSWORD', this.getDataValue('salt'));
+          const hashedPassword = crypto
+            .createHmac('sha1', this.getDataValue('salt'))
+            .update(value)
+            .digest('hex');
+          this.setDataValue('hashedPassword', hashedPassword);
+        },
       },
       passwordChangedAt: {
         type: DataTypes.DATE,
@@ -124,13 +130,15 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: false,
         field: 'two_factor_authentication_code',
       },
-      createdAt: DataTypes.DATE,
-      updatedAt: DataTypes.DATE,
+      role: {
+        type: DataTypes.STRING,
+      },
       createdBy: DataTypes.STRING,
       updatedBy: DataTypes.STRING,
     },
     {
       sequelize,
+      timestamps: true,
       modelName: 'User',
       tableName: 'users',
     }

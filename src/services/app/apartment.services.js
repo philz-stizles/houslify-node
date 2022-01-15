@@ -1,16 +1,9 @@
+const { Op } = require('sequelize');
 const AppError = require('../../errors/app.error');
 const { Apartment } = require('../../db/models');
 
 class ApartmentService {
   async create(modelObject) {
-    const existingApartment = await ApartmentService.existsAsync({
-      name: modelObject.name,
-    });
-
-    if (existingApartment) {
-      throw new AppError(400, 'Apartment already exists');
-    }
-
     return await Apartment.create(modelObject);
   }
 
@@ -22,8 +15,18 @@ class ApartmentService {
     return await Apartment.create(modelObject);
   }
 
-  static async findFiltered(query, page, size) {
-    return await Apartment.findAll();
+  static async findFiltered(query, limit, offset, sort) {
+    // Build query.
+    let queryString = JSON.stringify(query);
+    queryString = queryString.replace(/\b(eq|gt|lte|lt)\b/g, match => `${[Op[match]]}`);
+
+    console.log(queryString);
+
+    return await Apartment.findAll({
+      limit,
+      offset,
+      where: JSON.parse(queryString),
+    });
   }
 
   static async findAll(query) {
@@ -39,12 +42,8 @@ class ApartmentService {
     });
   }
 
-  static async existsAsync(query, include = null) {
-    const options = {}
-
-    if (include && typeof include === 'string') {
-      options.include = include
-    }
+  static async exists(query, include = null) {
+    const options = {};
 
     if (query) {
       options.where = query;

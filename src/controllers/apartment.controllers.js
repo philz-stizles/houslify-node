@@ -1,12 +1,23 @@
-const Apartment = require('../db/models/apartment');
 const { catchAsync } = require('../utils/api.utils');
 const AppError = require('../errors/app.error');
 const ApartmentServices = require('../services/app/apartment.services');
 
 exports.createApartment = catchAsync(async (req, res, next) => {
-  
-  const createdApartment = await new ApartmentServices().create(req.body);
-  
+  // Check if apartment name already exists.
+  const existingApartment = await ApartmentServices.exists({
+    name: req.body.name,
+  });
+
+  if (existingApartment) {
+    throw new AppError(400, 'Apartment already exists');
+  }
+
+  // Create new apartment.
+  const createdApartment = await new ApartmentServices().create({
+    ...req.body,
+    userId: req.user.id,
+    createdBy: req.user.id,
+  });
 
   res
     .status(201)
@@ -27,9 +38,30 @@ exports.getAllApartments = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getFilteredApartments =  catchAsync(async (req, res, next) => {
-  res
-    .json({ status: true, data: '', message: 'Retrieved successfully' });
+// GET /apartments?location=Lagos,price[eq]=12&size=34567
+// GET /apartments?page=1&limit=10
+// GET /apartments?sort=createdAt:desc,name:desc
+exports.getFilteredApartments = catchAsync(async (req, res) => {
+  // Build query.
+  const excludeFields = ['page', 'limit', 'sort'];
+  const query = { ...req.query }
+  excludeFields.forEach(field => delete query[field]);
+
+  // Build pagination.
+  let { page, limit, sort } = req.query;
+  page = page && !isNaN(page) && parseInt(page) > 0 ? parseInt(page) : 1;
+  limit = limit && !isNaN(limit) ? parseInt(limit) : 10;
+  limit = limit < 10 ? 10 : limit > 100 ? 100 : limit;
+  const offset = (page - 1) * limit;
+
+
+  const apartments = await ApartmentServices.findFiltered(query, limit, offset, sort);
+
+  res.json({
+    status: true,
+    data: apartments,
+    message: 'Retrieved successfully',
+  });
 });
 
 exports.getApartment =  catchAsync(async (req, res, next) => {

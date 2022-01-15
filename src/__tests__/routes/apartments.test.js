@@ -16,10 +16,10 @@ describe('Apartment routes', () => {
     //   dummyApartment.price = 10;
     // });
 
-    // it(`has a route handler listening to ${endpoint} for POST requests`, async () => {
-    //   const response = await request(app).post(endpoint);
-    //   expect(response.status).not.toEqual(404);
-    // });
+    it(`has a route handler listening to ${endpoint} for POST requests`, async () => {
+      const response = await request(app).post(endpoint);
+      expect(response.status).not.toEqual(404);
+    });
 
 //     it('can only be accessed if the user is authenticated', async () => {
 //       await request(app).post(endpoint).send({}).expect(401);

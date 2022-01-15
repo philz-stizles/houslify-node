@@ -80,7 +80,10 @@ This is a real estate platform
   "jsxBracketSameLine": true
   }
 
-- Install prettier eslint plugins: npm install -D eslint-config-prettier eslint-plugin-prettier
+- Install prettier eslint plugins: npm install -D eslint-config-prettier eslint-plugin-prettier eslint-plugin-node
+  eslint-config-prettier: 
+  eslint-plugin-prettier:
+  eslint-plugin-node:
 
 ## Jest
 
